@@ -51,6 +51,7 @@ project=$(basename $repo)
 
 git clone $repo $project
 cd $project
+npm install
 npm run build
 npm test
 [[ `git status --porcelain` ]] || exit
