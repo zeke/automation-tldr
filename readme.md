@@ -16,13 +16,16 @@ chmod +x scripts/release.sh
 npm i -g npe
 npe "scripts.release" "node scripts/release.sh"
 
+## Install a tool to simplify getting your npm token
+npm i -g get-auth-token-from-npmrc
+
 # Create Heroku app
 heroku create
 heroku buildpacks:add -i 1 https://github.com/zeke/github-buildpack
 heroku buildpacks:add -i 2 https://github.com/zeke/npm-buildpack
 heroku buildpacks:add -i 3 heroku/nodejs
 heroku config:set GITHUB_AUTH_TOKEN=YOUR_GITHUB_TOKEN
-heroku config:set NPM_AUTH_TOKEN=YOUR_NPM_TOKEN
+heroku config:set NPM_AUTH_TOKEN=$(get-auth-token-from-npmrc)
 heroku config:set NPM_CONFIG_PRODUCTION=false
 heroku addons:create scheduler
 heroku addons:open scheduler
